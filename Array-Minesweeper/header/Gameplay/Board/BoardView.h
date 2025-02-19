@@ -1,8 +1,5 @@
 #pragma once
 #include "../../header/UI/UIElement/ImageView.h"
-#include <SFML/Graphics.hpp>
-#include "../../header/Global/ServiceLocator.h"
-#include "../../header/Global/Config.h"
 
 namespace Gameplay
 {
