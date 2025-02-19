@@ -1,4 +1,5 @@
 #pragma once
+#include "../../header/Gameplay/Board/BoardView.h"
 
 namespace Gameplay
 {
@@ -7,6 +8,8 @@ namespace Gameplay
 		class BoardController
 		{
 		private:
+			BoardView* board_view;
+
 			void createBoard();
 			void deleteBoard();
 			void destroy();
