@@ -3,6 +3,8 @@
 #include "../../header/Event/EventService.h"
 #include "../../header/UI/UIService.h"
 
+#include <iostream>
+
 namespace Main
 {
 	using namespace Global;
@@ -14,6 +16,7 @@ namespace Main
 	GameService::GameService()
 	{
 		service_locator = nullptr;
+		game_window = nullptr;
 	}
 
 	GameService::~GameService()
@@ -23,21 +26,31 @@ namespace Main
 
 	void GameService::ignite()
 	{
+		std::cout << "Ignite function of game service called" << std::endl;
 		service_locator = ServiceLocator::getInstance();
 		initialize();
+		showSplashScreen();
 	}
 
 	void GameService::initialize()
 	{
 		service_locator->initialize();
-		initializeVariables();
-		showSplashScreen();
+		game_window = service_locator->getGraphicService()->getGameWindow();//new line
+
+		if (game_window == nullptr)
+			std::cout << "GAME WINDOW IS NULL inside GamerService, initialize()" << std::endl;
+		else
+			std::cout << "GAME WINDOW IS  NOT NULL inside GamerService, initialize()" << std::endl;
+
+		//initializeVariables();//commented for now
 	}
 
+	/*
 	void GameService::initializeVariables()
 	{
 		game_window = service_locator->getGraphicService()->getGameWindow();
 	}
+	*/
 
 	void GameService::showSplashScreen()
 	{

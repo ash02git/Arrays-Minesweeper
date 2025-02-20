@@ -1,5 +1,5 @@
 #include "../../header/UI/UIElement/ImageView.h"
-
+#include <iostream>//new line
 namespace UI
 {
     namespace UIElement
@@ -77,10 +77,26 @@ namespace UI
 
         void ImageView::setCentreAlinged()
         {
-            float x_position = (game_window->getSize().x / 2) - (image_sprite.getGlobalBounds().width / 2);
-            float y_position = image_sprite.getGlobalBounds().getPosition().y;
+            std::cout << game_window << std::endl;
 
-            image_sprite.setPosition(x_position, y_position);
+            /*
+            if (game_window == nullptr)
+                std::cout << "Game window is null inside ImageView, setCentreAligned" << std::endl;//new lines degbug
+            else
+                std::cout << "Game window is not null inside ImageView, setCentreAligned" << std::endl;
+            */
+
+            if (game_window != nullptr)
+            {
+                float x_position = (game_window->getSize().x / 2) - (image_sprite.getGlobalBounds().width / 2);
+                float y_position = image_sprite.getGlobalBounds().getPosition().y;
+
+                image_sprite.setPosition(x_position, y_position);
+            }
+            //float x_position = (game_window->getSize().x / 2) - (image_sprite.getGlobalBounds().width / 2);
+            //float y_position = image_sprite.getGlobalBounds().getPosition().y;
+
+            //image_sprite.setPosition(x_position, y_position);
         }
     }
 }

@@ -3,6 +3,8 @@
 #include "../../header/Graphics/GraphicService.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Global/Config.h"
+#include <iostream>
+using namespace std;
 
 namespace Gameplay
 {
@@ -11,6 +13,11 @@ namespace Gameplay
 		void BoardView::initializeBackgroundImage()
 		{
 			sf::RenderWindow* game_window = Global::ServiceLocator::getInstance()->getGraphicService()->getGameWindow();
+			std::cout << "Background texture path = " << Global::Config::background_texture_path.toAnsiString() << std::endl;
+			//std::cout << "Background texture path is " << bgm_texture_path << std::endl;
+			std::cout << "Background size x = " << game_window->getSize().x << std::endl;
+			std::cout << "Background size y = " << game_window->getSize().y << std::endl;
+			std::cout << "Background alpha value = " << background_alpha << std::endl;
 
 			background_image->initialize(Global::Config::background_texture_path, game_window->getSize().x, game_window->getSize().y, sf::Vector2f(0, 0));
 			background_image->setImageAlpha(background_alpha);
@@ -33,6 +40,7 @@ namespace Gameplay
 		}
 		void BoardView::initialize()
 		{
+			
 			initializeBackgroundImage();
 			initializeBoardImage();
 		}

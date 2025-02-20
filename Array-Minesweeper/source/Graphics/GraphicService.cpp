@@ -1,4 +1,5 @@
 #include "../../header/Graphics/GraphicService.h"
+#include <iostream>
 
 namespace Graphics
 {
@@ -15,6 +16,12 @@ namespace Graphics
 	void GraphicService::initialize()
 	{
 		game_window = createGameWindow();
+
+		if (game_window != nullptr)
+			std::cout << "Game window is not nullptr inside GraphicService , initialize" << std::endl;
+		else
+			std::cout << "Game window is not nullptr inside GraphicService , initialize" << std::endl;
+
 		setFrameRate(frame_rate);
 	}
 

@@ -22,7 +22,7 @@ namespace Main
 		sf::RenderWindow* game_window;
 
 		void initialize();
-		void initializeVariables();
+		///void initializeVariables();
 		void showSplashScreen();
 		void destroy();
 
