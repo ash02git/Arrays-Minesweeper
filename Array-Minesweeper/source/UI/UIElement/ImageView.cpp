@@ -79,24 +79,11 @@ namespace UI
         {
             std::cout << game_window << std::endl;
 
-            /*
-            if (game_window == nullptr)
-                std::cout << "Game window is null inside ImageView, setCentreAligned" << std::endl;//new lines degbug
-            else
-                std::cout << "Game window is not null inside ImageView, setCentreAligned" << std::endl;
-            */
+            
+            float x_position = (game_window->getSize().x / 2) - (image_sprite.getGlobalBounds().width / 2);
+            float y_position = image_sprite.getGlobalBounds().getPosition().y;
 
-            if (game_window != nullptr)
-            {
-                float x_position = (game_window->getSize().x / 2) - (image_sprite.getGlobalBounds().width / 2);
-                float y_position = image_sprite.getGlobalBounds().getPosition().y;
-
-                image_sprite.setPosition(x_position, y_position);
-            }
-            //float x_position = (game_window->getSize().x / 2) - (image_sprite.getGlobalBounds().width / 2);
-            //float y_position = image_sprite.getGlobalBounds().getPosition().y;
-
-            //image_sprite.setPosition(x_position, y_position);
+            image_sprite.setPosition(x_position, y_position);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Gameplay
 		}
 		void BoardView::initializeBoardImage()
 		{
-			background_image->initialize(Global::Config::board_texture_path, board_width, board_height, sf::Vector2f(0, 0));
+			board_image->initialize(Global::Config::board_texture_path, board_width, board_height, sf::Vector2f(0, 0));
 			board_image->setCentreAlinged();
 		}
 		BoardView::BoardView(BoardController* controller)
