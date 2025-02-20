@@ -16,6 +16,8 @@ namespace Gameplay
 			void deleteBoard();
 			void destroy();
 
+			void initializeCells();
+
 		public:
 			static const int number_of_rows = 9;
 			static const int number_of_columns = 9;
