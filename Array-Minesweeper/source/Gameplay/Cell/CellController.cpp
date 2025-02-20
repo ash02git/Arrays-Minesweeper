@@ -8,6 +8,7 @@ namespace Gameplay
 		
 		CellController::CellController()
 		{
+			cell_model = new CellModel();
 			cell_view = new CellView(this);
 		}
 		CellController::~CellController()
@@ -28,10 +29,24 @@ namespace Gameplay
 		}
 		void CellController::reset()
 		{
+			cell_model->reset();
+		}
+		CellState CellController::getCellState()
+		{
+			return cell_model->getCellState();
+		}
+		CellValue CellController::getCellValue()
+		{
+			return cell_model->getCellValue();
+		}
+		sf::Vector2i CellController::getCellPosition()
+		{
+			return cell_model->getPosition();
 		}
 		void CellController::destroy()
 		{
 			delete(cell_view);
+			delete(cell_model);
 		}
 	}
 }
