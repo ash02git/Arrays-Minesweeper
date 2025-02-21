@@ -17,5 +17,7 @@ namespace Gameplay
 		void render();
 
 		void startGame();
+
+		float getRemainingTime();
 	};
 }

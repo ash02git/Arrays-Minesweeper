@@ -28,4 +28,8 @@ namespace Gameplay
 	{
 		gameplay_controller->reset();
 	}
+	float GameplayService::getRemainingTime()
+	{
+		return gameplay_controller->getRemainingTime();
+	}
 }

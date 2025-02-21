@@ -2,6 +2,7 @@
 #include "../../header/Graphics/GraphicService.h"
 #include "../../header/Event/EventService.h"
 #include "../../header/UI/UIService.h"
+#include "../../header/Utility/TimeService.h"
 #include "../../header/Sound/SoundService.h"
 #include"../../header/Gameplay/Board/BoardService.h"
 #include "../../header/Gameplay/GameplayService.h"
@@ -17,6 +18,7 @@ namespace Global
         UI::UIService* ui_service;
         Gameplay::GameplayService* gameplay_service;
         Gameplay::Board::BoardService* board_service;
+        Utility::TimeService* time_service;
 
         ServiceLocator();
         ~ServiceLocator();
@@ -37,6 +39,7 @@ namespace Global
         UI::UIService* getUIService();
         Gameplay::GameplayService* getGameplayService();
         Gameplay::Board::BoardService* getBoardService();
+        Utility::TimeService* getTimeService();
 
         void deleteServiceLocator();
     };
