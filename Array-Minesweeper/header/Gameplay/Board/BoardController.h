@@ -8,16 +8,6 @@ namespace Gameplay
 	{
 		class BoardController
 		{
-		private:
-			BoardView* board_view;
-			Cell::CellController* cell_controller;
-
-			void createBoard();
-			void deleteBoard();
-			void destroy();
-
-			void initializeCells();
-
 		public:
 			static const int number_of_rows = 9;
 			static const int number_of_columns = 9;
@@ -31,6 +21,17 @@ namespace Gameplay
 			void render();
 
 			void reset();
+		private:
+			BoardView* board_view;
+			Cell::CellController* cell_controller[number_of_columns];
+
+			void createBoard();
+			void deleteBoard();
+			void destroy();
+
+			void initializeCells();
+
+		
 		};
 	}
 }
