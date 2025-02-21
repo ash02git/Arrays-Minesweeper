@@ -6,11 +6,13 @@ namespace Gameplay
 	{
 		void BoardController::createBoard()
 		{
-			cell_controller = new Cell::CellController();
+			for(int i =0;i<number_of_columns;i++)
+				cell_controller[i] = new Cell::CellController(i);
 		}
 		void BoardController::deleteBoard()
 		{
-			delete(cell_controller);
+			for (int i = 0;i < number_of_columns;i++)
+				delete(cell_controller[i]);
 		}
 		void BoardController::destroy()
 		{
@@ -21,7 +23,8 @@ namespace Gameplay
 			float cell_width = board_view->getCellWidth();
 			float cell_height = board_view->getCellHeight();
 
-			cell_controller->initialize(cell_width, cell_height);
+			for (int i = 0;i < number_of_columns;i++)
+				cell_controller[i]->initialize(cell_width, cell_height);
 		}
 		BoardController::BoardController()
 		{
@@ -42,16 +45,21 @@ namespace Gameplay
 		void BoardController::update()
 		{
 			board_view->update();
-			cell_controller->update();
+
+			for (int i = 0;i < number_of_columns;i++)
+				cell_controller[i]->update();
 		}
 		void BoardController::render()
 		{
 			board_view->render();
-			cell_controller->render();
+
+			for (int i = 0;i < number_of_columns;i++)
+				cell_controller[i]->render();
 		}
 		void BoardController::reset()
 		{
-			cell_controller->reset();
+			for (int i = 0;i < number_of_columns;i++)
+				cell_controller[i]->reset();
 		}
 	}
 }
