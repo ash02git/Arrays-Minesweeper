@@ -23,7 +23,7 @@ namespace Gameplay
 			void reset();
 		private:
 			BoardView* board_view;
-			Cell::CellController* cell_controller[number_of_columns];
+			Cell::CellController* board[number_of_rows][number_of_columns];
 
 			void createBoard();
 			void deleteBoard();
@@ -31,7 +31,7 @@ namespace Gameplay
 
 			void initializeCells();
 
-		
+			void resetBoard();
 		};
 	}
 }
