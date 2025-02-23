@@ -91,6 +91,10 @@ namespace Gameplay
 				}
 			}
 		}
+		int BoardController::getMinesCount()
+		{
+			return number_of_mines;
+		}
 		void BoardController::reset()
 		{
 			resetBoard();
