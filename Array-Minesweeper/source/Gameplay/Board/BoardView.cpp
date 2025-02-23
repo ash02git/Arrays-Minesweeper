@@ -62,5 +62,6 @@ namespace Gameplay
 		{
 			return (board_height - board_height_offset) / static_cast<float>(BoardController::number_of_rows);
 		}
+		
 	}
 }
