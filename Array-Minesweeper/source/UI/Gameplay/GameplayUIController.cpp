@@ -1,5 +1,6 @@
 #include "../../header/UI/Gameplay/GameplayUIController.h"
 #include "../../header/Global/ServiceLocator.h"
+#include "../../header/Global/Config.h"
 #include <sstream>
 #include <iomanip>
 
@@ -42,32 +43,57 @@ namespace UI
 			mine_text->setText(string_mine_count);
 			mine_text->update();
 		}
+		void GameplayUIController::createButton()
+		{
+			restart_button = new UI::UIElement::ButtonView();
+		}
+		void GameplayUIController::initializeButton()
+		{
+			restart_button->initialize("Restart", Global::Config::restart_button_texture_path, button_width, button_height, sf::Vector2f(restart_button_left_offset, restart_button_top_offset));
+
+			registerButtonCallback();
+		}
+		void GameplayUIController::registerButtonCallback()
+		{
+			restart_button->registerCallbackFuntion(std::bind(&GameplayUIController::restartButtonCallback, this));
+		}
+		void GameplayUIController::restartButtonCallback()
+		{
+			Global::ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::BUTTON_CLICK);
+			Global::ServiceLocator::getInstance()->getGameplayService()->startGame();
+		}
 		GameplayUIController::GameplayUIController()
 		{
+			createButton();
 			createTexts();
 		}
 		GameplayUIController::~GameplayUIController()
 		{
+			delete(restart_button);
 			delete(time_text);
 			delete(mine_text);
 		}
 		void GameplayUIController::initialize()
 		{
+			initializeButton();
 			initializeTimeText();
 			initializeMineText();
 		}
 		void GameplayUIController::update()
 		{
+			restart_button->update();
 			updateTimeText();
 			updateMineText();
 		}
 		void GameplayUIController::render()
 		{
+			restart_button->render();
 			time_text->render();
 			mine_text->render();
 		}
 		void GameplayUIController::show()
 		{
+			restart_button->show();
 			time_text->show();
 			mine_text->show();
 		}
