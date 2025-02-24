@@ -30,6 +30,8 @@ namespace Gameplay
 
 		void showCredits();
 
+		bool isTimeOver();
+
 	public:
 		GameplayController();
 		~GameplayController();
