@@ -73,5 +73,10 @@ namespace Gameplay
 			delete(cell_view);
 			delete(cell_model);
 		}
+
+		bool CellController::canOpenCell()
+		{
+			return cell_model->getCellState() != CellState::FLAGGED && cell_model->getCellState() != CellState::OPEN;
+		}
 	}
 }

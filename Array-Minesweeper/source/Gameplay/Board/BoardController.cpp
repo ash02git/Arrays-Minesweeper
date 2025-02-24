@@ -1,4 +1,5 @@
 #include "../../header/Gameplay/Board/BoardController.h"
+#include "../../header/Global/ServiceLocator.h"
 
 namespace Gameplay
 {
@@ -91,12 +92,69 @@ namespace Gameplay
 				}
 			}
 		}
+		void BoardController::openCell(sf::Vector2i cell_position)
+		{
+			if (board[cell_position.x][cell_position.y]->canOpenCell())
+			{
+				if (board_state == BoardState::FIRST_CELL)
+				{
+					populateBoard(cell_position);
+					board_state = BoardState::PLAYING;
+				}
+
+				board[cell_position.x][cell_position.y]->openCell();
+			}
+		}
+		void BoardController::flagCell(sf::Vector2i cell_position)
+		{
+			switch (board[cell_position.x][cell_position.y]->getCellState())
+			{
+			case::Gameplay::Cell::CellState::FLAGGED:
+				Global::ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::FLAG);
+				flagged_cells--; //Used to update Gameplay UI
+				break;
+			case::Gameplay::Cell::CellState::HIDDEN:
+				Global::ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::FLAG);
+				flagged_cells++; //Used to update Gameplay UI
+				break;
+			}
+
+			board[cell_position.x][cell_position.y]->flagCell();
+		}
+		void BoardController::processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type)
+		{
+			switch (button_type)
+			{
+			case UI::UIElement::ButtonType::LEFT_MOUSE_BUTTON:
+				openCell(cell_controller->getCellPosition());
+				break;
+
+			case UI::UIElement::ButtonType::RIGHT_MOUSE_BUTTON:
+				flagCell(cell_controller->getCellPosition());
+				break;
+			}
+		}
+		BoardState BoardController::getBoardState()
+		{
+			return board_state;
+		}
+		void BoardController::setBoardState(BoardState state)
+		{
+			board_state = state;
+		}
+		void BoardController::populateBoard(sf::Vector2i cell_position)
+		{
+			//populateMines(cell_position);  //Yet to Implement
+	//populateCells();  //Yet to implement
+		}
 		int BoardController::getMinesCount()
 		{
-			return number_of_mines;
+			return number_of_mines-flagged_cells;
 		}
 		void BoardController::reset()
 		{
+			flagged_cells = 0;
+			board_state = BoardState::FIRST_CELL;
 			resetBoard();
 		}
 	}

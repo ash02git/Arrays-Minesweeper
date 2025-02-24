@@ -37,5 +37,9 @@ namespace Gameplay
 		{
 			return board_controller->getMinesCount();
 		}
+		void BoardService::processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type)
+		{
+			board_controller->processCellInput(cell_controller, button_type);
+		}
 	}
 }
