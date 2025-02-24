@@ -1,12 +1,12 @@
 #include "../../header/Gameplay/GameplayController.h"
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Main/GameService.h"
+#include <iostream>
 
 namespace Gameplay
 {
 	GameplayController::GameplayController()
 	{
-		game_result = GameResult::NONE;
 		board_service = nullptr;
 	}
 	GameplayController::~GameplayController()
@@ -69,15 +69,22 @@ namespace Gameplay
 			beginGameOverTimer();
 			board_service->showBoard();
 			board_service->setBoardState(Board::BoardState::COMPLETED);
+			std::cout << "Game lost sound to be played" << std::endl;
+			Global::ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::EXPLOSION);
 		}
 		else
 		{
 			showCredits();
 		}
+		
 	}
 	void GameplayController::gameWon()
 	{
-		//later
+		game_result = GameResult::WON;
+		board_service->flagAllMines();
+		board_service->setBoardState(Board::BoardState::COMPLETED);
+		std::cout << "Game won sound to be played" << std::endl; 
+		Global::ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::GAME_WON);
 	}
 	void GameplayController::beginGameOverTimer()
 	{

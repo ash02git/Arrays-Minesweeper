@@ -33,6 +33,8 @@ namespace Gameplay
 			void showBoard();
 
 			void setBoardState(BoardState board_state);
+
+			void flagAllMines();
 		};
 	}
 }

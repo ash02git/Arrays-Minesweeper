@@ -47,6 +47,7 @@ namespace Gameplay
 
 			void showBoard();
 
+			void flagAllMines();
 		private:
 			BoardView* board_view;
 			Cell::CellController* board[number_of_rows][number_of_columns];

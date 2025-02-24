@@ -1,8 +1,6 @@
 #include "../../header/Global/ServiceLocator.h"
 #include "../../header/Main/GameService.h"
 
-#include <iostream>//new line
-
 namespace Global
 {
 	using namespace Graphics;
@@ -91,9 +89,6 @@ namespace Global
 	ServiceLocator* ServiceLocator::getInstance()
 	{
 		static ServiceLocator instance;
-
-		std::cout << "Returning instance of service locator" << std::endl;//new line debug
-
 		return &instance;
 	}
 

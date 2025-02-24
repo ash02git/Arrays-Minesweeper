@@ -27,6 +27,9 @@ namespace Sound
 
 		if (!buffer_explosion.loadFromFile(Config::explosion_sound_path))
 			printf("Error loading explosion sound file");
+
+		if (!buffer_game_won.loadFromFile(Config::game_won_sound_path))
+			printf("Error loading explosion sound file");
 	}
 
 	void SoundService::playSound(SoundType soundType)
@@ -41,6 +44,9 @@ namespace Sound
 			break;
 		case SoundType::EXPLOSION:
 			sound_effect.setBuffer(buffer_explosion);
+			break;
+		case SoundType::GAME_WON:
+			sound_effect.setBuffer(buffer_game_won);
 			break;
 		default:
 			printf("Invalid sound type");

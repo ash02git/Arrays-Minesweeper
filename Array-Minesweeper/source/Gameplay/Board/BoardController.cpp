@@ -202,6 +202,17 @@ namespace Gameplay
 			Global::ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::EXPLOSION);
 			Global::ServiceLocator::getInstance()->getGameplayService()->endGame(GameResult::LOST);
 		}
+		void BoardController::flagAllMines()
+		{
+			for (int row = 0; row < number_of_rows; ++row)
+			{
+				for (int col = 0; col < number_of_columns; ++col)
+				{
+					if (board[row][col]->getCellValue() == Cell::CellValue::MINE && board[row][col]->getCellState() != Cell::CellState::FLAGGED)
+						flagCell(sf::Vector2i(row, col));
+				}
+			}
+		}
 		void BoardController::showBoard()
 		{
 			switch (Global::ServiceLocator::getInstance()->getBoardService()->getBoardState())
@@ -221,6 +232,9 @@ namespace Gameplay
 		}
 		void BoardController::processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type)
 		{
+			if (board_state == BoardState::COMPLETED)
+				return;
+			
 			switch (button_type)
 			{
 			case UI::UIElement::ButtonType::LEFT_MOUSE_BUTTON:
