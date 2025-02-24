@@ -96,6 +96,12 @@ namespace Gameplay
 		{
 			if (board[cell_position.x][cell_position.y]->canOpenCell())
 			{
+				if (board_state == BoardState::FIRST_CELL)
+				{
+					populateBoard(cell_position);
+					board_state = BoardState::PLAYING;
+				}
+
 				board[cell_position.x][cell_position.y]->openCell();
 			}
 		}
@@ -128,6 +134,19 @@ namespace Gameplay
 				break;
 			}
 		}
+		BoardState BoardController::getBoardState()
+		{
+			return board_state;
+		}
+		void BoardController::setBoardState(BoardState state)
+		{
+			board_state = state;
+		}
+		void BoardController::populateBoard(sf::Vector2i cell_position)
+		{
+			//populateMines(cell_position);  //Yet to Implement
+	//populateCells();  //Yet to implement
+		}
 		int BoardController::getMinesCount()
 		{
 			return number_of_mines-flagged_cells;
@@ -135,6 +154,7 @@ namespace Gameplay
 		void BoardController::reset()
 		{
 			flagged_cells = 0;
+			board_state = BoardState::FIRST_CELL;
 			resetBoard();
 		}
 	}

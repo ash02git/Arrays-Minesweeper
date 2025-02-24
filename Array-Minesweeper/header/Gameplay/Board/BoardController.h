@@ -7,6 +7,13 @@ namespace Gameplay
 {
 	namespace Board
 	{
+		enum class BoardState
+		{
+			FIRST_CELL,
+			PLAYING,
+			COMPLETED
+		};
+		
 		class BoardController
 		{
 		public:
@@ -28,9 +35,15 @@ namespace Gameplay
 			int getMinesCount();
 
 			void processCellInput(Cell::CellController* controller, UI::UIElement::ButtonType button_type);
+
+			BoardState getBoardState();
+			void setBoardState(BoardState state);
+			void populateBoard(sf::Vector2i cell_position);
+
 		private:
 			BoardView* board_view;
 			Cell::CellController* board[number_of_rows][number_of_columns];
+			BoardState board_state;
 
 			int flagged_cells;
 
