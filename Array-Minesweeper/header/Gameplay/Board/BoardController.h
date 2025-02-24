@@ -74,6 +74,10 @@ namespace Gameplay
 			bool isValidCellPosition(sf::Vector2i cell_position);
 
 			void processCellValue(sf::Vector2i cell_position);
+
+			void openEmptyCells(sf::Vector2i cell_position);
+
+			void processEmptyCell(sf::Vector2i cell_position);//helper function
 		};
 	}
 }
