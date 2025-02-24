@@ -45,6 +45,8 @@ namespace Gameplay
 
 			void openAllCells();
 
+			void showBoard();
+
 		private:
 			BoardView* board_view;
 			Cell::CellController* board[number_of_rows][number_of_columns];
@@ -78,6 +80,9 @@ namespace Gameplay
 			void openEmptyCells(sf::Vector2i cell_position);
 
 			void processEmptyCell(sf::Vector2i cell_position);//helper function
+			void processMineCell(sf::Vector2i cell_position);
+
+			
 		};
 	}
 }

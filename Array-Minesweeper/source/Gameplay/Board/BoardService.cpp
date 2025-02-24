@@ -41,5 +41,17 @@ namespace Gameplay
 		{
 			board_controller->processCellInput(cell_controller, button_type);
 		}
+		BoardState BoardService::getBoardState()
+		{
+			return board_controller->getBoardState();
+		}
+		void BoardService::showBoard()
+		{
+			board_controller->showBoard();
+		}
+		void BoardService::setBoardState(BoardState board_state)
+		{
+			board_controller->setBoardState(board_state);
+		}
 	}
 }
