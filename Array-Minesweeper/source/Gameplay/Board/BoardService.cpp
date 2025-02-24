@@ -53,5 +53,9 @@ namespace Gameplay
 		{
 			board_controller->setBoardState(board_state);
 		}
+		void BoardService::flagAllMines()
+		{
+			board_controller->flagAllMines();
+		}
 	}
 }

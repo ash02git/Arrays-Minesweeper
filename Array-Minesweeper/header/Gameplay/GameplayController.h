@@ -18,7 +18,7 @@ namespace Gameplay
 
 		const float game_over_time = 11.0f;
 
-		GameResult game_result;
+		GameResult game_result = GameResult::NONE;
 
 		Board::BoardService* board_service;
 
