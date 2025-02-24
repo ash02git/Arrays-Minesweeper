@@ -2,6 +2,7 @@
 #include "BoardView.h"
 #include "../../header/Gameplay/Cell/CellController.h"
 #include "../../header/UI/UIElement/ButtonView.h"
+#include <random>
 
 namespace Gameplay
 {
@@ -39,6 +40,8 @@ namespace Gameplay
 			BoardState getBoardState();
 			void setBoardState(BoardState state);
 			void populateBoard(sf::Vector2i cell_position);
+			void populateMines(sf::Vector2i cell_position);
+			void populateCells();
 
 		private:
 			BoardView* board_view;
@@ -46,6 +49,12 @@ namespace Gameplay
 			BoardState board_state;
 
 			int flagged_cells;
+
+			// To generate random values.
+			std::default_random_engine random_engine;
+
+			// To give random seed to generator.
+			std::random_device random_device;
 
 			void createBoard();
 			void deleteBoard();
@@ -57,6 +66,10 @@ namespace Gameplay
 
 			void openCell(sf::Vector2i cell_position);
 			void flagCell(sf::Vector2i cell_position);
+
+			int countMinesAround(sf::Vector2i cell_position);
+
+			bool isValidCellPosition(sf::Vector2i cell_position);
 		};
 	}
 }
