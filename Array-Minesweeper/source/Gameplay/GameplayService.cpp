@@ -36,4 +36,8 @@ namespace Gameplay
 	{
 		return gameplay_controller->getMinesCount();
 	}
+	void GameplayService::endGame(GameResult game_result)
+	{
+		gameplay_controller->endGame(game_result);
+	}
 }

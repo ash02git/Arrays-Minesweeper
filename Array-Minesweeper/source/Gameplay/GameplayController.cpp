@@ -1,17 +1,20 @@
 #include "../../header/Gameplay/GameplayController.h"
 #include "../../header/Global/ServiceLocator.h"
+#include "../../header/Main/GameService.h"
 
 namespace Gameplay
 {
 	GameplayController::GameplayController()
 	{
-
+		game_result = GameResult::NONE;
+		board_service = nullptr;
 	}
 	GameplayController::~GameplayController()
 	{
 	}
 	void GameplayController::initialize()
 	{
+		board_service = Global::ServiceLocator::getInstance()->getBoardService();
 	}
 	void GameplayController::update()
 	{
@@ -33,8 +36,52 @@ namespace Gameplay
 	{
 		return Global::ServiceLocator::getInstance()->getBoardService()->getMinesCount();
 	}
+	void GameplayController::endGame(GameResult result)
+	{
+		switch (result)
+		{
+			// In case the game is won, the gameWon() method is called.
+		case GameResult::WON:
+			gameWon();
+			break;
+			// In case the game is lost, the gameLost() method is called.
+		case GameResult::LOST:
+			gameLost();
+			break;
+			// The default case is not used here as all possible game outcomes should be WON or LOST.
+		default:
+			// No action is needed for default case.
+			break;
+		}
+	}
 	void GameplayController::updateRemainingTime()
 	{
 		remaining_time -= Global::ServiceLocator::getInstance()->getTimeService()->getDeltaTime();
+	}
+	void GameplayController::gameLost()
+	{
+		if (game_result == GameResult::NONE)
+		{
+			game_result = GameResult::LOST;
+			beginGameOverTimer();
+			board_service->showBoard();
+			board_service->setBoardState(Board::BoardState::COMPLETED);
+		}
+		else
+		{
+			showCredits();
+		}
+	}
+	void GameplayController::gameWon()
+	{
+		//later
+	}
+	void GameplayController::beginGameOverTimer()
+	{
+		remaining_time = game_over_time;
+	}
+	void GameplayController::showCredits()
+	{
+		Main::GameService::setGameState(Main::GameState::CREDITS);
 	}
 }
