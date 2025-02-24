@@ -45,6 +45,11 @@ namespace Gameplay
 			return cell_model->getPosition();
 		}
 
+		void CellController::setCellValue(CellValue cell_value)
+		{
+			cell_model->setCellValue(cell_value);
+		}
+
 		void CellController::openCell()
 		{
 			if (cell_model->getCellState() != CellState::FLAGGED)
