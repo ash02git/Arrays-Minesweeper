@@ -43,6 +43,8 @@ namespace Gameplay
 			void populateMines(sf::Vector2i cell_position);
 			void populateCells();
 
+			void openAllCells();
+
 		private:
 			BoardView* board_view;
 			Cell::CellController* board[number_of_rows][number_of_columns];
