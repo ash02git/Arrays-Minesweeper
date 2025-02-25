@@ -41,6 +41,7 @@ namespace Gameplay
 	}
 	void GameplayController::endGame(GameResult result)
 	{
+		std::cout << "Has come inside endGame of GameplayController" << std::endl;
 		switch (result)
 		{
 			// In case the game is won, the gameWon() method is called.
@@ -63,12 +64,14 @@ namespace Gameplay
 	}
 	void GameplayController::gameLost()
 	{
+		std::cout << "Has come inside gameLost of GameplayController" << std::endl;
 		if (game_result == GameResult::NONE)
 		{
+			std::cout << "Has come inside the condition that game result was none, so going to start game over timeer" << std::endl;
 			game_result = GameResult::LOST;
 			beginGameOverTimer();
-			board_service->showBoard();
 			board_service->setBoardState(Board::BoardState::COMPLETED);
+			board_service->showBoard();
 			std::cout << "Game lost sound to be played" << std::endl;
 			Global::ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::EXPLOSION);
 		}
@@ -76,18 +79,20 @@ namespace Gameplay
 		{
 			showCredits();
 		}
-		
 	}
 	void GameplayController::gameWon()
 	{
+		std::cout << "Game won ....came inside gameWon() of gameplayController" << std::endl;
 		game_result = GameResult::WON;
 		board_service->flagAllMines();
 		board_service->setBoardState(Board::BoardState::COMPLETED);
 		std::cout << "Game won sound to be played" << std::endl; 
 		Global::ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::GAME_WON);
+		beginGameOverTimer();
 	}
 	void GameplayController::beginGameOverTimer()
 	{
+		std::cout << "started game over timer" << std::endl;
 		remaining_time = game_over_time;
 	}
 	void GameplayController::showCredits()

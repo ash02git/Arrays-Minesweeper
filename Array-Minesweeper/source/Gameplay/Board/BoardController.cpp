@@ -1,5 +1,7 @@
 #include "../../header/Gameplay/Board/BoardController.h"
 #include "../../header/Global/ServiceLocator.h"
+#include "../../header/Global/Config.h"
+#include <iostream>
 
 namespace Gameplay
 {
@@ -103,6 +105,13 @@ namespace Gameplay
 				}
 				processCellValue(cell_position);
 				board[cell_position.x][cell_position.y]->openCell();
+
+				/*
+				if (checkWinCondition())
+				{
+					Global::ServiceLocator::getInstance()->getGameplayService()->endGame(GameResult::WON);
+				}
+				*/
 			}
 		}
 		void BoardController::flagCell(sf::Vector2i cell_position)
@@ -120,7 +129,12 @@ namespace Gameplay
 			}
 
 			board[cell_position.x][cell_position.y]->flagCell();
+
+			//check win condition
 		}
+
+
+
 		int BoardController::countMinesAround(sf::Vector2i cell_position)
 		{
 			int mines_around = 0;
@@ -191,7 +205,6 @@ namespace Gameplay
 					openCell(next_cell_position);
 				}
 			}
-
 		}
 		void BoardController::processEmptyCell(sf::Vector2i cell_position)
 		{
@@ -199,6 +212,15 @@ namespace Gameplay
 		}
 		void BoardController::processMineCell(sf::Vector2i cell_position)
 		{
+			std::cout << "Has clicked on a mine" << std::endl;
+			std::cout << "Has come inside processMineCell of BoardController" << std::endl;
+			std::cout << "playin explosion inside processMineCell()" << std::endl;
+			std::cout << "service locator instance : "<<Global::ServiceLocator::getInstance() << std::endl;
+
+			std::cout << "Sound service instance : " <<Global::ServiceLocator::getInstance()->getSoundService() << std::endl;
+
+			std::cout << "Explosion sound path : " << (Global::Config::explosion_sound_path).toAnsiString() << std::endl;
+
 			Global::ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::EXPLOSION);
 			Global::ServiceLocator::getInstance()->getGameplayService()->endGame(GameResult::LOST);
 		}
@@ -213,8 +235,25 @@ namespace Gameplay
 				}
 			}
 		}
+		bool BoardController::checkWinCondition()
+		{
+			for (int i = 0;i < number_of_rows;i++)
+			{
+				for (int j = 0;j < number_of_columns;j++)
+				{
+					if (board[i][j]->getCellState() != Cell::CellState::OPEN && board[i][j]->getCellValue()==Cell::CellValue::MINE)//tricky
+					{
+						std::cout << "In checkWinCondition, it has returned false" << std::endl;
+						return false;
+					}
+				}
+			}
+			std::cout << "In checkWinCondition,boardController, it has returned true" << std::endl;
+			return true;
+		}
 		void BoardController::showBoard()
 		{
+			std::cout << "Has come inside BoardController show board" << std::endl;
 			switch (Global::ServiceLocator::getInstance()->getBoardService()->getBoardState())
 			{
 			case Gameplay::Board::BoardState::FIRST_CELL:
@@ -225,6 +264,7 @@ namespace Gameplay
 				openAllCells();
 				break;
 			case Gameplay::Board::BoardState::COMPLETED:
+				openAllCells();
 				break;
 			default:
 				break;
@@ -232,7 +272,7 @@ namespace Gameplay
 		}
 		void BoardController::processCellInput(Cell::CellController* cell_controller, UI::UIElement::ButtonType button_type)
 		{
-			if (board_state == BoardState::COMPLETED)
+			if (board_state == BoardState::COMPLETED)// to remove getting input once the game is completed
 				return;
 			
 			switch (button_type)

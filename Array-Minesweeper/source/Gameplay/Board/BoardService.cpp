@@ -1,5 +1,6 @@
 
 #include "../../header/Gameplay/Board/BoardService.h"
+#include <iostream>
 namespace Gameplay
 {
 	namespace Board
@@ -47,6 +48,7 @@ namespace Gameplay
 		}
 		void BoardService::showBoard()
 		{
+			std::cout << "Has come inside Board service show board" << std::endl;
 			board_controller->showBoard();
 		}
 		void BoardService::setBoardState(BoardState board_state)
