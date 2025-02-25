@@ -241,11 +241,22 @@ namespace Gameplay
 			{
 				for (int j = 0;j < number_of_columns;j++)
 				{
+					Cell::CellController *current_cell = board[i][j];
+
+					/*
 					if (board[i][j]->getCellState() != Cell::CellState::OPEN && board[i][j]->getCellValue()==Cell::CellValue::MINE)//tricky
 					{
 						std::cout << "In checkWinCondition, it has returned false" << std::endl;
 						return false;
 					}
+					*/
+
+					if (!((current_cell->getCellState() == Cell::CellState::OPEN && current_cell->getCellValue() != Cell::CellValue::MINE) || (current_cell->getCellState() != Cell::CellState::OPEN && current_cell->getCellValue() == Cell::CellValue::MINE)))
+					{
+						std::cout << "In checkWinCondition, it has returned false" << std::endl;
+						return false;
+					}
+
 				}
 			}
 			std::cout << "In checkWinCondition,boardController, it has returned true" << std::endl;
@@ -284,6 +295,12 @@ namespace Gameplay
 			case UI::UIElement::ButtonType::RIGHT_MOUSE_BUTTON:
 				flagCell(cell_controller->getCellPosition());
 				break;
+			}
+
+			//checking win condition here
+			if (checkWinCondition())
+			{
+				Global::ServiceLocator::getInstance()->getGameplayService()->endGame(GameResult::WON);
 			}
 		}
 		BoardState BoardController::getBoardState()
