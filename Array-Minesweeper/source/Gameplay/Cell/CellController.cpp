@@ -52,7 +52,7 @@ namespace Gameplay
 
 		void CellController::openCell()
 		{
-			if (cell_model->getCellState() != CellState::FLAGGED)
+			//if (cell_model->getCellState() != CellState::FLAGGED) // commented for now
 			{
 				cell_model->setCellState(CellState::OPEN);
 				Global::ServiceLocator::getInstance()->getSoundService()->playSound(Sound::SoundType::BUTTON_CLICK);

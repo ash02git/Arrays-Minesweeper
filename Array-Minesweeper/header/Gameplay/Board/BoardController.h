@@ -48,10 +48,12 @@ namespace Gameplay
 			void showBoard();
 
 			void flagAllMines();
+
+			bool checkWinCondition();
 		private:
 			BoardView* board_view;
 			Cell::CellController* board[number_of_rows][number_of_columns];
-			BoardState board_state;
+			BoardState board_state = BoardState::FIRST_CELL;
 
 			int flagged_cells;
 

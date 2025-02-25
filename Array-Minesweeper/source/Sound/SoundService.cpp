@@ -1,5 +1,6 @@
 #include "../../header/Sound/SoundService.h"
 #include "../../header/Global/Config.h"
+#include <iostream>
 
 namespace Sound
 {
@@ -29,7 +30,7 @@ namespace Sound
 			printf("Error loading explosion sound file");
 
 		if (!buffer_game_won.loadFromFile(Config::game_won_sound_path))
-			printf("Error loading explosion sound file");
+			printf("Error loading game won sound file");
 	}
 
 	void SoundService::playSound(SoundType soundType)
@@ -43,6 +44,7 @@ namespace Sound
 			sound_effect.setBuffer(buffer_flag_sound);
 			break;
 		case SoundType::EXPLOSION:
+			std::cout << "Inside playSound(explosion) of soundservice" << std::endl;
 			sound_effect.setBuffer(buffer_explosion);
 			break;
 		case SoundType::GAME_WON:

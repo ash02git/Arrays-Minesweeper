@@ -1,5 +1,6 @@
 
 #include "../../header/Gameplay/GameplayService.h"
+#include <iostream>
 namespace Gameplay
 {
 	GameplayService::GameplayService()
@@ -38,6 +39,7 @@ namespace Gameplay
 	}
 	void GameplayService::endGame(GameResult game_result)
 	{
+		std::cout << "Has come inside endGame() of GameplayService" << std::endl;
 		gameplay_controller->endGame(game_result);
 	}
 }
